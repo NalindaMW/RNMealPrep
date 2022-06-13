@@ -2,7 +2,11 @@ import { Text, StyleSheet, FlatList, SafeAreaView, View } from "react-native";
 import CategoryGridTile from "../components/CategoryGridTile";
 import { CATEGORIES } from "../data/dummy-data";
 
-function CategoriesScreen() {
+function CategoriesScreen({ navigation }) {
+  function pressHandler() {
+    navigation.navigate("MealsOverview");
+  }
+
   return (
     <FlatList
       data={CATEGORIES}
@@ -11,6 +15,7 @@ function CategoriesScreen() {
         <CategoryGridTile
           title={itemData.item.title}
           color={itemData.item.color}
+          onPress={pressHandler}
         />
       )}
       numColumns={2}
