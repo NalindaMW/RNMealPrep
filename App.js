@@ -28,7 +28,16 @@ export default function App() {
           <Stack.Screen
             name="MealsOverview"
             component={MealsOverviewScreen}
-            options={{ title: "Meals Overview", headerBackTitle: " " }}
+            // Default way to set header options
+            // options={{ title: "Meals Overview", headerBackTitle: " " }}
+
+            // we can set header values using route params
+            // options={({ route, navigation }) => {
+            //   const catID = route.params.categoryID;
+            //   return {
+            //     title: catID,
+            //   };
+            // }}
           />
         </Stack.Navigator>
       </NavigationContainer>
