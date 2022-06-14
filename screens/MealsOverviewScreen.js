@@ -27,7 +27,13 @@ function MealsOverviewScreen({ route, navigation }) {
       title: categoryTitle,
       headerBackTitle: " ",
     });
-  }, [catID, navigation]);
+  }, [catID, navigation]); // can use [] as it executes only one time
+
+  function pressHandler(itemData) {
+    navigation.navigate("MealDetail", {
+      mealID: itemData.item.id,
+    });
+  }
 
   function renderMealItem(itemData) {
     const item = itemData.item;
@@ -39,7 +45,9 @@ function MealsOverviewScreen({ route, navigation }) {
       complexity: item.complexity,
       affordability: item.affordability,
     };
-    return <MealItem {...mealItemProps} />;
+    return (
+      <MealItem {...mealItemProps} onPress={() => pressHandler(itemData)} />
+    );
   }
 
   return (
