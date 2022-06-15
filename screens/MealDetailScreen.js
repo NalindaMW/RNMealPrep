@@ -1,4 +1,12 @@
-import { View, Text, Image, StyleSheet, ScrollView } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  ScrollView,
+  Button,
+} from "react-native";
+import { useLayoutEffect } from "react";
 import MealDetails from "../components/MealDetails";
 import SimpleList from "../components/SimpleList";
 import { MEALS } from "../data/dummy-data";
@@ -7,6 +15,18 @@ function MealDetailScreen({ route, navigation }) {
   const mealID = route.params.mealID;
 
   const selectedMeal = MEALS.find((meal) => mealID === meal.id);
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => {
+        return <Button title="Tap me!" onPress={headerButtonPressHander} />;
+      },
+    });
+  });
+
+  function headerButtonPressHander() {
+    console.log("headerButtonPressHander");
+  }
 
   return (
     <ScrollView style={styles.rootContainer}>
