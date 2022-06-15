@@ -1,5 +1,6 @@
-import { View, Text, Image, StyleSheet } from "react-native";
+import { View, Text, Image, StyleSheet, ScrollView } from "react-native";
 import MealDetails from "../components/MealDetails";
+import SimpleList from "../components/SimpleList";
 import { MEALS } from "../data/dummy-data";
 
 function MealDetailScreen({ route, navigation }) {
@@ -8,26 +9,49 @@ function MealDetailScreen({ route, navigation }) {
   const selectedMeal = MEALS.find((meal) => mealID === meal.id);
 
   return (
-    <View>
-      <Image source={{ uri: selectedMeal.imageUrl }} />
-      <Text>{selectedMeal.title}</Text>
-      <MealDetails
-        duration={selectedMeal.duration}
-        complexity={selectedMeal.complexity}
-        affordability={selectedMeal.affordability}
-      />
-      <Text>Ingredients</Text>
-      {selectedMeal.ingredients.map((ingredient) => (
-        <Text key={ingredient}>{ingredient}</Text>
-      ))}
-      <Text>Steps</Text>
-      {selectedMeal.steps.map((step) => (
-        <Text key={step}>{step}</Text>
-      ))}
-    </View>
+    <ScrollView style={styles.rootContainer}>
+      <View>
+        <Image source={{ uri: selectedMeal.imageUrl }} style={styles.image} />
+        <Text style={styles.title}>{selectedMeal.title}</Text>
+        <MealDetails
+          duration={selectedMeal.duration}
+          complexity={selectedMeal.complexity}
+          affordability={selectedMeal.affordability}
+          textStyle={styles.detailText}
+        />
+        <Text style={styles.subtitle}>Ingredients</Text>
+        <SimpleList data={selectedMeal.ingredients} />
+        <Text style={styles.subtitle}>Steps</Text>
+        <SimpleList data={selectedMeal.steps} />
+      </View>
+    </ScrollView>
   );
 }
 
 export default MealDetailScreen;
 
-const style = StyleSheet.create({});
+const styles = StyleSheet.create({
+  rootContainer: {
+    marginBottom: 32,
+  },
+  image: {
+    width: "100%",
+    height: 350,
+  },
+  title: {
+    fontWeight: "bold",
+    fontSize: 24,
+    margin: 8,
+    textAlign: "center",
+    color: "white",
+  },
+  detailText: {
+    color: "white",
+  },
+  subtitle: {
+    color: "white",
+    fontSize: 18,
+    fontWeight: "bold",
+    margin: 6,
+  },
+});
