@@ -1,9 +1,8 @@
-import { StyleSheet, View, FlatList } from "react-native";
 import { useLayoutEffect } from "react";
 import { useRoute } from "@react-navigation/native";
 
 import { MEALS, CATEGORIES } from "../data/dummy-data";
-import MealItem from "../components/MealItem";
+import MealsList from "../components/MealsList/MealsList";
 
 function MealsOverviewScreen({ route, navigation }) {
   //   can use useRoute in this screen or in nested components that has no access to route
@@ -29,43 +28,7 @@ function MealsOverviewScreen({ route, navigation }) {
     });
   }, [catID, navigation]); // can use [] as it executes only one time
 
-  function pressHandler(itemData) {
-    navigation.navigate("MealDetail", {
-      mealID: itemData.item.id,
-    });
-  }
-
-  function renderMealItem(itemData) {
-    const item = itemData.item;
-
-    const mealItemProps = {
-      title: item.title,
-      imageUrl: item.imageUrl,
-      duration: item.duration,
-      complexity: item.complexity,
-      affordability: item.affordability,
-    };
-    return (
-      <MealItem {...mealItemProps} onPress={() => pressHandler(itemData)} />
-    );
-  }
-
-  return (
-    <View style={styles.container}>
-      <FlatList
-        data={displayMeals}
-        keyExtractor={(item) => item.id}
-        renderItem={renderMealItem}
-      />
-    </View>
-  );
+  return <MealsList displayMeals={displayMeals} />;
 }
 
 export default MealsOverviewScreen;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 16,
-  },
-});
