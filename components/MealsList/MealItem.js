@@ -21,7 +21,6 @@ function MealItem({
   const navigation = useNavigation();
 
   function selectMealItemHandler() {
-    console.log("MEAL ID: ", imageUrl);
     navigation.navigate("MealDetail", {
       mealID: id,
     });
